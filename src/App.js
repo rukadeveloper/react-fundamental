@@ -1,23 +1,37 @@
+import React, { useState } from "react";
+
 import "./App.css";
 import PaymentForm from "./components/PaymentForm/PaymentForm";
 import Expenses from "./components/Payments/Expenses";
 
 function App() {
-	const expenses = [
-		{
-			id: "e1",
-			title: "수건",
-			amount: 12.33,
-			date: new Date(2025, 8, 14),
-		},
-	];
+  const [expenses, setExpenses] = useState([
+    {
+      id: "e1",
+      title: "수건",
+      amount: "12.33",
+      date: new Date(2025, 8, 14),
+    },
+  ]);
 
-	return (
-		<>
-			<PaymentForm />
-			<Expenses items={expenses} />
-		</>
-	);
+  const getPaymentsForm = (data) => {
+    console.log(data);
+    setExpenses([
+      {
+        id: Math.random().toString(),
+        title: data.name,
+        amount: data.price,
+        date: new Date(data.today),
+      },
+    ]);
+  };
+
+  return (
+    <>
+      <PaymentForm getPaymentsForm={getPaymentsForm} />
+      <Expenses items={expenses} />
+    </>
+  );
 }
 
 export default App;
